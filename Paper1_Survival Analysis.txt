@@ -1,0 +1,57 @@
+1) Citation to the original paper
+   Paper is about a deep active survival analysis approach and applied specifically on an application of prostate cancer writte by 
+   Milad Zafar Nezhada,∗, Najibesadat Sadatia, Kai Yanga, Dongxiao Zhub from Department of Industrial & Systems Engineering and computer science Wayne State University,
+
+	https://www.sciencedirect.com/science/article/pii/S0957417418304949
+
+2) What is the general problem this work is trying to do? We
+are not asking for the specific approach, that’s requested
+below. An example of a general problem is ‘mortality
+prediction.’ An example of a specific approach is ‘using
+recurrent neural network and attention mechanism.’ Do
+not copy the description in the paper – use your own
+rewording.
+
+In healthcare , EHR records and Clinical data is a great source of information but to analyze them is a challange because it is usually high dimensional, sparse and time-indenpendent.
+Also many of the data is missing in a time window of the interest of the study, getting labeled data is time consuming and expensive. That's why traditional machine learning methods are not effective on it. In order to address this, semi supervised 
+learning approach has been used which applies first unsupervised learning to identify robust features and applies supervised learning on those feautres which is of interest. Active learning is used to address small labeled data instances.
+
+3) What is the new specific approach being taken in this
+work, and what is interesting or innovative about it, in
+your opinion?
+
+Survival analysis using deep learing and active learning termed DASA is used to analyzed the high dimensional and small size EHRs.
+It provides the comparision of risk associate with different treatment plans and assign beeter one and has been tested on SEER medicate dataset related to prostate cancer.
+It considers 2 racial subgroups(african-american and whites).
+
+
+4) What are the specific hypotheses from the paper that you
+plan to verify in your reproduction study?
+
+In our study we will plan to learn survival and hazard function and will analyze different methods for that like Cox Proportion Hazards Model(COX) and random survival forests(RSF) using partial likelihood method and concordance index(c-index).
+We will try to learn both methods on SEER medicate dataset for prostate cancer and recommend different better  treatments among chemotherapy, radiotheraphy and surgery.
+
+5) What are the additional ablations you plan to do, and why
+are they interesting?
+
+Active learning needs an oracle need to label the data. we would like to study what if human annotator label the data wrong as it is quite possible.
+With pool based sampling how the accuracy and whole learning trend will be impacted by worng label and how we can unlearn those pool labeled data and restart the process from a point when it was lavbelled worng.
+
+
+6) State how you are assured that you have access to the
+appropriate data.
+
+We are trying to request SEER-Medicare dataset for prostate cancer on https://healthcaredelivery.cancer.gov/ but their policy is it takes 6-8 weeks and it is not free.
+We need help to find the prostate cancer dataset from faculty.
+
+7) Discuss the computational feasibility of your proposed
+work – make an argument that the reproduction will be
+feasible.
+
+If we get the data, the analysis showed in paper for different methods and treatment is doable.
+
+8) State whether you will re-use existing code (and provide
+a link to that code base) or whether you will implement
+yourself.
+
+At this point we have not identify any code we can resuse.

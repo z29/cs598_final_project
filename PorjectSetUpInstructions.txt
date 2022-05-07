@@ -1,0 +1,87 @@
+Zip the project file
+
+Go to jupiter and go to terminal
+
+Go to the file it is zip
+
+Fire command : unzip ~/ConCare.zip -d ~/
+
+Go and check if you are able to see the file >> ui
+
+Go to the terminal and install pytorch >> conda install -c pytorch pytorch
+
+http://localhost:8888/notebooks/Desktop/All%20folders/university%20of%20illinois/CS598-DeepLearningForHealthCare/Project/ConCare/concare-notebook.ipynb
+
+https://arxiv.org/abs/1911.12216
+
+cd <projectfolder>
+git clone https://github.com/YerevaNN/mimic3-benchmarks.git
+
+copy extracted mimic data set in data folder under mimic3-benchmarks-master>> data\mimic-iii-clinical-database-1.4
+copy gz_extract.py and change directory name as . in that folder
+
+### gz_extract.py code start
+import os, gzip, shutil
+
+dir_name = '.'
+
+def gz_extract(directory):
+    extension = ".gz"
+    os.chdir(directory)
+    for item in os.listdir(directory): # loop through items in dir
+      if item.endswith(extension): # check for ".gz" extension
+          gz_name = os.path.abspath(item) # get full path of files
+          file_name = (os.path.basename(gz_name)).rsplit('.',1)[0] #get file name for file within
+          with gzip.open(gz_name,"rb") as f_in, open(file_name,"wb") as f_out:
+              shutil.copyfileobj(f_in, f_out)
+          os.remove(gz_name) # delete zipped file
+        
+gz_extract(dir_name)
+
+### gz_extract.py code end
+
+go to jupiter terminal and go to Project\mimic3-benchmarks-master\data\mimic-iii-clinical-database-1.4 and run gz_extract.py to extract all csvs files.
+
+# Data generation
+cd ..
+cd ..
+# make sure you are in project/mimic3-benchmarks-master folder
+python -m mimic3benchmark.scripts.extract_subjects .\data\mimic-iii-clinical-database-1.4 data\mimic-iii-clinical-data-generated-csvs
+
+# if you get an error that AttributeError: 'DataFrame' object has no attribute 'ix' then change that line of code to use .loc instead of .idx as new version of python use it.
+# I changed it on mmic3csv.py >> line #80
+
+python -m mimic3benchmark.scripts.validate_events .\data\mimic-iii-clinical-data-generated-csvs
+
+python -m mimic3benchmark.scripts.extract_episodes_from_subjects .\data\mimic-iii-clinical-data-generated-csvs
+
+
+python -m mimic3benchmark.scripts.split_train_and_test .\data\mimic-iii-clinical-data-generated-csvs
+
+
+python -m mimic3benchmark.scripts.create_in_hospital_mortality .\data\mimic-iii-clinical-data-generated-csvs .\data\in-hospital-mortality\
+python -m mimic3benchmark.scripts.create_decompensation .\data\mimic-iii-clinical-data-generated-csvs .\data\decompensation\
+python -m mimic3benchmark.scripts.create_length_of_stay .\data\mimic-iii-clinical-data-generated-csvs .\data\length-of-stay\
+python -m mimic3benchmark.scripts.create_phenotyping .\data\mimic-iii-clinical-data-generated-csvs .\data\phenotyping\
+python -m mimic3benchmark.scripts.create_multitask .\data\mimic-iii-clinical-data-generated-csvs .\data\multitask\
+
+Ma, Liantao et al. “ConCare: Personalized Clinical Feature Embedding via Capturing the 
+Healthcare Context.” AAAI (2020). 
+url: https://arxiv.org/abs/1911.12216 
+2. The general problem of this study is Personalized Clinical Feature Embedding 
+3. The specific approach of this study is by improving on multi-head self-attention by using 
+crosshead decorrelation to discover the inter-dependencies between the dynamic 
+features and static patient information to generate a personal health context 
+4. The hypothesis that we are focusing on is that by evaluating the health status of 
+patients from the perspective of clinical features, rather than visits, we can build a more 
+adaptive and accurate personal health context for the patient 
+5. If possible, we would like to try to test out our results on other datasets if possible, as 
+well as tweak the hyperparameters to get the best results 
+6. This study used the MIMIC-III and ESRD datasets, but for the purposes of the final 
+project, we will be using just the MIMIC-III dataset as it is the only one of the two 
+publicly available 
+7. The system is like RETAIN, and both the data and codebase are available, so we are fairly 
+confident that we can reproduce the results of this paper 
+8. https://github.com/Accountable-Machine-Intelligence/ConCare 
+ 
+ 
