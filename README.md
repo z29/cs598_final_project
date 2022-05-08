@@ -12,3 +12,33 @@
 * Download and unizp the data folder from the link provided at the top of this readme into the project folder
 * Run the notebook
 
+### Baseline methods 
+
+
+Baseline model - in-hospital mortality prediction 
+   
+To run Logistic please create the different environment with below software in anaconda navigator 
+
+conda install tensorflow=2.1.0
+conda install keras=2.3.1
+conda install pandas=0.23.4
+conda install -c conda-forge tqdm
+conda install -c free scikit-learn=0.18.2
+
+python -um mimic3models.in_hospital_mortality.logistic.main --l2 --C 0.001 --output_dir mimic3models/in_hospital_mortality/logistic
+
+To run lstm, Tlstm, grualpha and retain , please prepare anaconda navigator with below 
+
+conda install tensorflow=2.1.0
+conda install keras=2.3.1
+conda install pandas=0.23.4
+conda install -c conda-forge tqdm
+conda install -c scikit-learn
+
+python -um mimic3models.in_hospital_mortality.main --network mimic3models/keras_models/lstm.py --dim 16 --timestep 1.0 --depth 2 --dropout 0.3 --mode train --batch_size 8 --output_dir mimic3models/in_hospital_mortality
+
+python -um mimic3models.in_hospital_mortality.main --network mimic3models/keras_models/tlstm.py --dim 16 --timestep 1.0 --depth 2 --dropout 0.3 --mode train --batch_size 8 --output_dir mimic3models/in_hospital_mortality >> tlstm_output.txt
+
+python -um mimic3models.in_hospital_mortality.main --network mimic3models/keras_models/grualpha.py --dim 16 --timestep 1.0 --depth 2 --dropout 0.3 --mode train --batch_size 8 --output_dir mimic3models/in_hospital_mortality >>gruaplha_output.txt
+
+python -um mimic3models.in_hospital_mortality.main --network mimic3models/keras_models/retain.py --dim 16 --timestep 1.0 --depth 2 --dropout 0.3 --mode train --batch_size 8 --output_dir mimic3models/in_hospital_mortality >> retain_output.txt
